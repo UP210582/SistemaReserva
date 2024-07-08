@@ -1,5 +1,6 @@
 import React from 'react';	
 import PropTypes from 'prop-types';
+import './Review.css';
 
 const Review = (props) => {
     return(

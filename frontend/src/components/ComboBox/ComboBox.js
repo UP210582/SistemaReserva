@@ -1,5 +1,6 @@
 import React from 'react';	
 import PropTypes from 'prop-types';
+import './ComboBox.css';
 
 const ComboBox = (props) => {
     return(
