@@ -1,12 +1,19 @@
+// Button.js
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-function ReservationButton() {
+function Button() {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/reservation');
+  };
+
   return (
-    <Button variant="primary" size="lg">
+    <button onClick={handleClick} className="btn btn-primary">
       Hacer Reserva
-    </Button>
+    </button>
   );
 }
 
-export default ReservationButton;
+export default Button;

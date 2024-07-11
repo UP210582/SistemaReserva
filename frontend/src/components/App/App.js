@@ -1,24 +1,38 @@
-// App.js
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from '../Header';
 import ImageCarousel from '../ImageCarousel';
-import ReservationButton from '../Button';
+import Button from '../Button';
 import Reviews from '../Review';
 import Contact from '../Contact';
+import ReservationPage from '../ReservPage';
 
-function App() {
+function HomePage() {
   return (
-    <div className="App">
+    <>
       <Header />
       <main className="container py-4">
         <ImageCarousel />
         <div className="text-center my-4">
-          <ReservationButton />
+          <Button />
         </div>
         <Reviews />
       </main>
       <Contact />
-    </div>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/reservation" element={<ReservationPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
