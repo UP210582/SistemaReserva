@@ -1,2 +1,2 @@
-import Content from './Content';
-export default Content;
+import Review from './Review';
+export default Review;

@@ -1,17 +1,11 @@
-import React from 'react';	
-import PropTypes from 'prop-types';
-import './Button.css';
+import React from 'react';
 
-const Button = (props) => {
-    return(
-        <div className='Button'>
-
-        </div>
-    );
+function ReservationButton() {
+  return (
+    <button className="reservation-button">
+      Hacer Reserva
+    </button>
+  );
 }
 
-Button.propTypes = {
-    
-}
-
-export default Button;
+export default ReservationButton;
