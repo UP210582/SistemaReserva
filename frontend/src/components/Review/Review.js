@@ -1,12 +1,16 @@
-// Reviews.js
 import React from 'react';
+import { Card, Container, Row, Col } from 'react-bootstrap';
 
 function ReviewItem({ text }) {
   return (
-    <div className="review-item">
-      <div className="user-icon">👤</div>
-      <p>{text}</p>
-    </div>
+    <Card className="mb-3">
+      <Card.Body>
+        <Card.Text>
+          <i className="bi bi-person-circle me-2"></i>
+          {text}
+        </Card.Text>
+      </Card.Body>
+    </Card>
   );
 }
 
@@ -15,16 +19,22 @@ function Reviews() {
     "Excelente comida y servicio",
     "Ambiente muy agradable",
     "Volveré pronto",
-    // Más reseñas...
+    "Platos deliciosos",
+    "Atención impecable",
+    "Precios razonables"
   ];
 
   return (
-    <section className="reviews">
-      <h2>Reseñas</h2>
-      {reviewsData.map((review, index) => (
-        <ReviewItem key={index} text={review} />
-      ))}
-    </section>
+    <Container className="my-4">
+      <h2 className="text-center mb-4">Reseñas</h2>
+      <Row>
+        {reviewsData.map((review, index) => (
+          <Col key={index} md={4}>
+            <ReviewItem text={review} />
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 }
 

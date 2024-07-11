@@ -1,10 +1,11 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 
 function ReservationButton() {
   return (
-    <button className="reservation-button">
+    <Button variant="primary" size="lg">
       Hacer Reserva
-    </button>
+    </Button>
   );
 }
 

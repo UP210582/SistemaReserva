@@ -6,13 +6,15 @@ import ReservationButton from '../Button';
 import Reviews from '../Review';
 import Contact from '../Contact';
 
-const App = () => {
+function App() {
   return (
     <div className="App">
       <Header />
-      <main>
+      <main className="container py-4">
         <ImageCarousel />
-        <ReservationButton />
+        <div className="text-center my-4">
+          <ReservationButton />
+        </div>
         <Reviews />
       </main>
       <Contact />
