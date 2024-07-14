@@ -1,10 +1,10 @@
 import React from 'react';
-import Calendar from '../Calendar'; // Vamos a crear este componente
+import Calendar from '../Calendar';
 
 function ReservationPage() {
   return (
     <div className="reservation-page">
-      <h1>Restarante Delicias</h1>
+      <h1>Restaurante Delicias</h1>
       <Calendar />
       <div className="info-section">
         <div>

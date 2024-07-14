@@ -1,19 +1,29 @@
 // Button.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
-function Button() {
+function CustomButton({ children, to, onClick, ...props }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/reservation');
+    if (to) {
+      navigate(to);
+    } else if (onClick) {
+      onClick();
+    }
   };
 
   return (
-    <button onClick={handleClick} className="btn btn-primary">
-      Hacer Reserva
-    </button>
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={handleClick}
+      {...props}
+    >
+      {children}
+    </Button>
   );
 }
 
-export default Button;
+export default CustomButton;
