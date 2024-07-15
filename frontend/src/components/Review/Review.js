@@ -1,40 +1,36 @@
 import React from 'react';
-import { Card, Container, Row, Col } from 'react-bootstrap';
+import { Box, Typography, Grid, Avatar } from '@mui/material';
 
-function ReviewItem({ text }) {
+function ReviewItem({ content }) {
   return (
-    <Card className="mb-3">
-      <Card.Body>
-        <Card.Text>
-          <i className="bi bi-person-circle me-2"></i>
-          {text}
-        </Card.Text>
-      </Card.Body>
-    </Card>
+    <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+      <Avatar sx={{ mr: 2 }}>U</Avatar>
+      <Typography variant="body2">{content}</Typography>
+    </Box>
   );
 }
 
 function Reviews() {
-  const reviewsData = [
-    "Excelente comida y servicio",
-    "Ambiente muy agradable",
-    "Volveré pronto",
-    "Platos deliciosos",
-    "Atención impecable",
-    "Precios razonables"
+  const reviews = [
+    { id: 1, content: 'Excelente comida y servicio.' },
+    { id: 2, content: 'Ambiente muy agradable.' },
+    { id: 3, content: 'Volveré pronto.' },
+    { id: 4, content: 'Precios razonables.' },
+    { id: 5, content: 'Menú variado.' },
+    { id: 6, content: 'Personal muy amable.' },
   ];
 
   return (
-    <Container className="my-4">
-      <h2 className="text-center mb-4">Reseñas</h2>
-      <Row>
-        {reviewsData.map((review, index) => (
-          <Col key={index} md={4}>
-            <ReviewItem text={review} />
-          </Col>
+    <Box sx={{ my: 4 }}>
+      <Typography variant="h5" sx={{ mb: 2 }}>Reseñas</Typography>
+      <Grid container spacing={2}>
+        {reviews.map((review) => (
+          <Grid item xs={12} sm={6} md={4} key={review.id}>
+            <ReviewItem content={review.content} />
+          </Grid>
         ))}
-      </Row>
-    </Container>
+      </Grid>
+    </Box>
   );
 }
 

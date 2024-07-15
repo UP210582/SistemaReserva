@@ -1,17 +1,16 @@
 import React from 'react';
-import { Navbar, Container } from 'react-bootstrap';
+import { AppBar, Toolbar, Typography, Box } from '@mui/material';
 
 function Header() {
   return (
-    <Navbar bg="light" expand="lg">
-      <Container>
-        <Navbar.Brand href="#home">Logo</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
-          <Navbar.Text className="h1">Restaurante</Navbar.Text>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <AppBar position="static" color="transparent" elevation={0}>
+      <Toolbar>
+        <Box sx={{ flexGrow: 1 }}>
+          <Typography variant="h6">Logo</Typography>
+        </Box>
+        <Typography variant="h4">Restaurante</Typography>
+      </Toolbar>
+    </AppBar>
   );
 }
 

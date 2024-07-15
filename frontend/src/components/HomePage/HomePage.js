@@ -1,22 +1,20 @@
 import React from 'react';
+import { Container, CssBaseline } from '@mui/material';
 import Header from '../Header';
-import ImageCarousel from '../ImageCarousel';
-import CustomButton from '../Button';
+import Hero from '../Hero';
 import Reviews from '../Review';
 import Contact from '../Contact';
 
 function HomePage() {
   return (
     <>
-      <Header />
-      <main className="container py-4">
-        <ImageCarousel />
-        <div className="text-center my-4">
-        <CustomButton to="/reservation">Reservar Ahora</CustomButton>
-        </div>
+      <CssBaseline />
+      <Container maxWidth="lg">
+        <Header />
+        <Hero />
         <Reviews />
-      </main>
-      <Contact />
+        <Contact />
+      </Container>
     </>
   );
 }
