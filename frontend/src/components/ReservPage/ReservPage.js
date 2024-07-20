@@ -1,5 +1,6 @@
 import React from 'react';
 import Calendar from '../Calendar';
+import CustomButton from '../Button';
 
 function ReservationPage() {
   return (
@@ -7,6 +8,7 @@ function ReservationPage() {
       <h1>Restaurante Delicias</h1>
       <Calendar />
       <div className="info-section">
+      <CustomButton to="/homepage">Cancelar</CustomButton>
         <div>
           <h2>Location</h2>
           <p>[Dirección del restaurante]</p>
