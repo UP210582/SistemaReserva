@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, CssBaseline } from '@mui/material';
-import Header from '../Header';
-import Hero from '../Hero';
-import Reviews from '../Review';
+import Header from './Header';
+import Hero from './Hero';
+import Reviews from './Review';
 import Contact from '../Contact';
 
 function HomePage() {

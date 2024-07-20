@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Paper } from '@mui/material';
-import ReservationHeader from '../ReservHeader';
-import ReservationForm from '../ReservForm';
-import AvailableReservations from '../AvailableReserv';
+import ReservationHeader from './ReservHeader';
+import ReservationForm from './ReservForm';
+import AvailableReservations from './AvailableReserv';
 
 function ReservationPage() {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
-import CustomButton from '../Button';
+import CustomButton from '../../Button';
 
 function Hero() {
   const items = [

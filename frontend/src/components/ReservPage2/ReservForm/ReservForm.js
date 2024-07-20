@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Select, MenuItem } from '@mui/material';
-import CustomButton from '../Button';
+import CustomButton from '../../Button';
 
 function ReservationForm() {
   const [persons, setPersons] = useState('');

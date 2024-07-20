@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Box } from '@mui/material';
-import CustomButton from '../Button';
+import CustomButton from '../../Button';
 
 function AvailableReservations() {
   const availableDates = ['2023-07-01', '2023-07-02', '2023-07-03'];
