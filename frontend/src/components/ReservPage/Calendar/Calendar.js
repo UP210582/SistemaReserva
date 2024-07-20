@@ -1,89 +1,101 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Calendar.css'; // Asegúrate de crear este archivo para los estilos
+import { Paper, Grid, Typography, IconButton } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 function Calendar() {
   const navigate = useNavigate();
+  const [date, setDate] = useState(new Date());
   const today = new Date();
-  const month = today.getMonth(); // Mes actual (0-11)
-  const year = today.getFullYear(); // Año actual
-  const currentDay = today.getDate(); // Día actual
 
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
+  useEffect(() => {
+    if (date < today) {
+      setDate(new Date(today.getFullYear(), today.getMonth(), 1));
+    }
+  }, [date, today]);
 
-  // Obtener el primer día del mes
-  const firstDay = new Date(year, month, 1).getDay();
-  // Obtener el número de días en el mes actual
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  // Manejar el clic en un día del calendario
   const handleDayClick = (day) => {
-    // Navegar a la nueva ruta con la fecha
-    navigate(`/reservation2?date=${year}-${month + 1}-${day}`);
+    const selectedDate = new Date(date.getFullYear(), date.getMonth(), day);
+    if (selectedDate >= today && selectedDate.getDay() !== 1) {
+      navigate(`/reservation2?date=${selectedDate.toISOString().split('T')[0]}`);
+    }
   };
 
-  // Generar las semanas y días del calendario
-  const generateCalendar = () => {
-    const weeks = [];
-    let week = [];
-    let day = 1;
+  const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  const prevMonthDays = new Date(date.getFullYear(), date.getMonth(), 0).getDate(); // Days from the previous month
 
-    // Agregar días vacíos al inicio de la primera semana
-    for (let i = 0; i < firstDay; i++) {
-      week.push(<td key={`empty-${i}`} className="empty"></td>);
-    }
+  const renderCalendarDays = () => {
+    const days = [];
+    const totalCells = 42; // 6 rows * 7 days
 
-    // Agregar días del mes
-    for (let i = firstDay; i < 7; i++) {
-      week.push(
-        <td key={day} className={day === currentDay ? "current-day" : ""} onClick={() => handleDayClick(day)}>
-          {day}
-        </td>
+    for (let i = 0; i < totalCells; i++) {
+      const dayNumber = i - firstDayOfMonth + 1;
+      const isCurrentMonth = dayNumber > 0 && dayNumber <= daysInMonth;
+      const isPrevMonthDay = dayNumber <= 0;
+      const currentDate = new Date(date.getFullYear(), date.getMonth(), isPrevMonthDay ? prevMonthDays + dayNumber : dayNumber);
+      const isPastDate = currentDate < today;
+      const isMonday = currentDate.getDay() === 1; // Assuming Monday is not selectable
+      const isDisabled = isPastDate || isMonday;
+
+      days.push(
+        <Grid item xs key={i} style={{ padding: '2px' }}>
+          <Paper 
+            elevation={3} 
+            style={{ 
+              padding: '10px', 
+              cursor: isDisabled ? 'not-allowed' : 'pointer', 
+              textAlign: 'center',
+              width: '40px',
+              height: '40px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: isDisabled ? '#f0f0f0' : 'white',
+              color: isDisabled ? '#aaa' : 'black'
+            }}
+            onClick={() => !isDisabled && handleDayClick(dayNumber)}
+          >
+            {isCurrentMonth ? dayNumber : ''}
+          </Paper>
+        </Grid>
       );
-      day++;
     }
+    return days;
+  };
 
-    // Agregar la primera semana al array de semanas
-    weeks.push(<tr key={`week-1`}>{week}</tr>);
-
-    // Agregar las semanas restantes
-    while (day <= daysInMonth) {
-      week = [];
-      for (let i = 0; i < 7; i++) {
-        if (day <= daysInMonth) {
-          week.push(
-            <td key={day} className={day === currentDay ? "current-day" : ""} onClick={() => handleDayClick(day)}>
-              {day}
-            </td>
-          );
-          day++;
-        } else {
-          week.push(<td key={`empty-${day + i}`} className="empty"></td>);
-        }
-      }
-      weeks.push(<tr key={`week-${weeks.length + 1}`}>{week}</tr>);
+  const changeMonth = (increment) => {
+    const newDate = new Date(date.getFullYear(), date.getMonth() + increment, 1);
+    if (newDate >= new Date(today.getFullYear(), today.getMonth(), 1)) {
+      setDate(newDate);
     }
-
-    return weeks;
   };
 
   return (
-    <table className="calendar">
-      <thead>
-        <tr>
-          <th colSpan="7">{monthNames[month]} {year}</th>
-        </tr>
-        <tr>
-          <th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th>
-        </tr>
-      </thead>
-      <tbody>
-        {generateCalendar()}
-      </tbody>
-    </table>
+    <Paper elevation={3} style={{ padding: '20px', marginBottom: '20px', maxWidth: '500px', margin: 'auto' }}>
+      <Grid container alignItems="center" justifyContent="space-between" style={{ marginBottom: '10px' }}>
+        <IconButton onClick={() => changeMonth(-1)} disabled={date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()}>
+          <ArrowBackIosNewIcon />
+        </IconButton>
+        <Typography variant="h5" align="center">
+          {date.toLocaleString('default', { month: 'long', year: 'numeric' })}
+        </Typography>
+        <IconButton onClick={() => changeMonth(1)}>
+          <ArrowForwardIosIcon />
+        </IconButton>
+      </Grid>
+      <Grid container spacing={0} style={{ marginBottom: '10px' }}>
+        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+          <Grid item xs key={day}>
+            <Typography variant="subtitle2" align="center">{day}</Typography>
+          </Grid>
+        ))}
+      </Grid>
+      <Grid container spacing={0}>
+        {renderCalendarDays()}
+      </Grid>
+    </Paper>
   );
 }
 

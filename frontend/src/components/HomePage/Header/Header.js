@@ -6,9 +6,13 @@ function Header() {
     <AppBar position="static" color="transparent" elevation={0}>
       <Toolbar>
         <Box sx={{ flexGrow: 1 }}>
-          <Typography variant="h6">Logo</Typography>
+        <img 
+            src="https://mcgourmet.com/img/logo.png" 
+            alt="Logo" 
+            style={{ height: '40px' }}
+          />
         </Box>
-        <Typography variant="h4">Restaurante</Typography>
+        <Typography variant="h4">Mc Gourmet Restaurante Delicias</Typography>
       </Toolbar>
     </AppBar>
   );
