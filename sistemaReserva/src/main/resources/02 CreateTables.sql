@@ -1,5 +1,5 @@
--- Base de datos: full
-use FULL;
+-- CREATE DATABASE sistemareserva;
+-- USE sistemareserva;
 
 CREATE TABLE `reserva` (
   `idReserva` int(11) NOT NULL,

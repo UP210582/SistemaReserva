@@ -1,10 +1,7 @@
-CREATE DATABASE IF NOT EXISTS FULL;
+CREATE DATABASE IF NOT EXISTS sistemareserva;
 
--- drop user 'full'@'localhost';     sensible a Mayusculas
--- SET PASSWORD FOR  'full'@'localhost' = PASSWORD ('full')
+CREATE USER 'sistemareserva'@'localhost' IDENTIFIED BY 'sistemareserva';
 
-CREATE USER 'full'@'localhost' IDENTIFIED BY 'full';
-
-GRANT ALL PRIVILEGES ON FULL.* TO 'full'@'localhost' [identified by 'full'];
+GRANT ALL PRIVILEGES ON sistemareserva.* TO 'full'@'localhost' [identified by 'sistemareserva'];
 
 flush privileges;
