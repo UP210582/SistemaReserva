@@ -5,8 +5,10 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { useNavigate } from 'react-router-dom';
 
 function ReservationForm() {
+  const navigate = useNavigate();
   const [persons, setPersons] = useState('');
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState('');
@@ -22,10 +24,7 @@ function ReservationForm() {
     setDate(newDate);
   };
 
-  const handleTimeChange = (event) => {
-    setTime(event.target.value);
-    saveReservationData(event.target.value); // Save reservation data when time is selected
-  };
+  const handleTimeChange = (event) => setTime(event.target.value);
 
   const handleCalendarToggle = () => setOpenCalendar(!openCalendar);
 
@@ -35,11 +34,21 @@ function ReservationForm() {
       return;
     }
 
-    // Here you could send the data to a backend or handle it as needed
+    // Aquí puedes enviar los datos a un backend o manejarlos según sea necesario
     console.log('Reserva realizada:');
     console.log(`Número de personas: ${persons}`);
     console.log(`Fecha: ${date.toISOString().split('T')[0]}`);
     console.log(`Hora: ${selectedTime}`);
+  };
+
+  const handleReservationClick = () => {
+    if (!persons || !date || !time) {
+      alert('Por favor, complete todos los campos.');
+      return;
+    }
+
+    saveReservationData(time); // Save data when button is clicked
+    navigate('/payment'); // Redirigir a la página de pago
   };
 
   const availableTimes = Array.from({ length: 8 }, (_, i) => `${11 + i}:00`);
@@ -96,19 +105,12 @@ function ReservationForm() {
         fullWidth
       >
         <MenuItem value="" disabled>Hora</MenuItem>
-        {Array.from({ length: 8 }, (_, i) => `${11 + i}:00`).map((time) => (
+        {availableTimes.map((time) => (
           <MenuItem key={time} value={time}>{time}</MenuItem>
         ))}
       </Select>
 
-      <CustomButton onClick={() => {
-        if (!persons || !date || !time) {
-          alert('Por favor, complete todos los campos.');
-          return;
-        }
-
-        saveReservationData(time); // Save data when button is clicked
-      }} sx={{ mt: 2 }}>
+      <CustomButton onClick={handleReservationClick} sx={{ mt: 2 }}>
         Encuentra una mesa
       </CustomButton>
     </Box>
