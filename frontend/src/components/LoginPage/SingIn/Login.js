@@ -14,7 +14,6 @@ import Container from '@mui/material/Container';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { Paper } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CustomButton from '../../Button';
 
 function Copyright(props) {
   return (
@@ -102,7 +101,14 @@ export default function SignIn() {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <CustomButton to="/reservation2">Reservar Ahora</CustomButton>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In
+              </Button>
               <Grid container>
                 <Grid item>
                   <Link component={RouterLink} to="/register" variant="body2">
