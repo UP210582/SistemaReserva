@@ -1,4 +1,3 @@
-// Button.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
@@ -7,6 +6,7 @@ function CustomButton({ children, to, onClick, ...props }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
+    console.clear(); // Limpia la consola
     if (to) {
       navigate(to);
     } else if (onClick) {
