@@ -1,37 +1,32 @@
--- Base de datos: full
-use FULL;
+-- Base de datos: restaurant_reservations
+use restaurant_reservations;
 
-CREATE TABLE employees (
-  id_employee int(10) AUTO_INCREMENT PRIMARY KEY,
-  last_name varchar(20) NOT NULL,
-  first_name varchar(10),
-  birth_date date,
-  hire_date datetime,
-  celular varchar(10),
-  active  boolean
+CREATE TABLE Users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-CREATE TABLE orders (
-  id_order int(10) AUTO_INCREMENT PRIMARY KEY,
-  id_employee int(10),
-  order_date date,
-  CONSTRAINT Emp_Ord FOREIGN KEY (id_employee) 
-            REFERENCES employees (id_employee)
+CREATE TABLE Reservations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    reservation_date DATE NOT NULL,
+    reservation_time TIME NOT NULL,
+    number_of_people INT NOT NULL,
+    reason VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
 );
-
-CREATE TABLE products (
-  id_product int(10) AUTO_INCREMENT PRIMARY KEY,
-  product_name varchar(40),
-  unit_price decimal(12,4) check(unit_price > 0)
+CREATE TABLE PaymentInfo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    reservation_id INT,
+    card_name VARCHAR(100) NOT NULL,
+    card_number VARCHAR(20) NOT NULL,
+    expiration_date DATE NOT NULL,
+    cvc VARCHAR(4) NOT NULL,
+    postal_code VARCHAR(10) NOT NULL,
+    FOREIGN KEY (reservation_id) REFERENCES Reservations(id)
 );
-
-CREATE TABLE orderDetails (
-  id_order int(10),
-  id_product int(10),
-  unit_price decimal(12,4),
-  quantity smallint(5),
-  discount double,
-  CONSTRAINT PRIMARY_KEY PRIMARY KEY(id_order, id_product),
-  CONSTRAINT ord_det FOREIGN KEY (id_order)   REFERENCES orders (id_order),
-  CONSTRAINT det_pro FOREIGN KEY (id_product) REFERENCES products (id_product)
-  );

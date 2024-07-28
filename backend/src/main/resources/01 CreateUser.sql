@@ -1,11 +1,11 @@
-CREATE DATABASE IF NOT EXISTS FULL;
+CREATE DATABASE IF NOT EXISTS restaurant_reservations;
 
--- drop user 'full'@'localhost';     sensible a Mayusculas
--- SET PASSWORD FOR  'full'@'localhost' = PASSWORD ('full')
+-- drop user 'restaurant'@'localhost';     sensible a Mayusculas
+-- SET PASSWORD FOR  'restaurant'@'localhost' = PASSWORD ('restaurant')
 
-CREATE USER 'full'@'localhost' IDENTIFIED BY 'full';
+CREATE USER 'restaurant'@'localhost' IDENTIFIED BY 'restaurant';
 
-GRANT ALL PRIVILEGES ON FULL.* TO 'full'@'localhost' [identified by 'full'];
+GRANT ALL PRIVILEGES ON restaurant.* TO 'restaurant'@'localhost' [identified by 'restaurant'];
 
 flush privileges;
 
