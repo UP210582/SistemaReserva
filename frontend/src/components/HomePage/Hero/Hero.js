@@ -29,7 +29,7 @@ function Hero() {
           </Box>
         ))}
       </Carousel>
-      <CustomButton to="/loginpage">Reservar Ahora</CustomButton>
+      <CustomButton to="/reservation2">Reservar Ahora</CustomButton>
     </Box>
   );
 }
