@@ -1,17 +1,18 @@
 package com.example.p03.config;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 
-@OpenAPIDefinition(
-    info = @Info(
-        title = "API Full",
-        description = "API para la administración de Full",
-        version = "v0.1.0"
-    )
-)
-
-// http://localhost:8080/swagger-ui/index.html
+@Configuration
 public class OpenAPIConfig {
-  
+
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .info(new Info().title("Restaurant Reservations API")
+                                .description("API for managing restaurant reservations")
+                                .version("1.0.0"));
+    }
 }
