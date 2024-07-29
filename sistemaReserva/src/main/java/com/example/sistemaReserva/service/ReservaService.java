@@ -18,7 +18,7 @@ public interface ReservaService {
 
   public Reserva getReserva(long id_reserva) throws ExcepcionRecursoNoEncontrado;
 
-  public Reserva save(@Valid @RequestBody @Valid @Valid @Valid CreateReservaDTO data);  // Altas
+  // public Reserva save(@Valid @RequestBody @Valid @Valid @Valid CreateReservaDTO data);  // Altas
 
   public void delete(long id_reserva);  // Bajas
 
@@ -28,9 +28,9 @@ public interface ReservaService {
 
 public Collection<Reserva> selectReservas(Boolean filtro);
 
-public ReservaDTO save(@Valid @Valid @Valid CreateReservaDTO data);
+// public ReservaDTO save(@Valid @Valid @Valid CreateReservaDTO data);
 
-public Reserva save(@Valid @Valid CreateReservaDTO data);
+// public Reserva save(@Valid @Valid CreateReservaDTO data);
 
   //public List<Reserva> findAll();
 }

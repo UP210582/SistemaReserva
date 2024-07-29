@@ -77,4 +77,10 @@ public class ReservaServiceImpl implements ReservaService {
     public Collection<Reserva> selectEmployees(Boolean filtro) {
         throw new UnsupportedOperationException("Unimplemented method 'selectEmployees'");
     }
+
+    @Override
+    public Collection<Reserva> selectReservas(Boolean filtro) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'selectReservas'");
+    }
 }
