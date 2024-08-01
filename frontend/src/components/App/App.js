@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from '../HomePage';
+import ReservPage2 from '../ReservPage2';
+import PaymentPage from '../PaymentPage';
+import Login from '../LoginPage/SingIn';
+import SingUp from '../LoginPage/SingUp'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/loginpage" element={<Login />} />
+          <Route path="/register" element={<SingUp />} />
+          <Route path="/reservation2" element={<ReservPage2 />} />
+          <Route path="/payment" element={<PaymentPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

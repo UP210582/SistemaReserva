@@ -1,17 +1,29 @@
-import React from 'react';	
-import PropTypes from 'prop-types';
-import './Button.css';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
-const Button = (props) => {
-    return(
-        <div className='Button'>
+function CustomButton({ children, to, onClick, ...props }) {
+  const navigate = useNavigate();
 
-        </div>
-    );
+  const handleClick = () => {
+    console.clear(); // Limpia la consola
+    if (to) {
+      navigate(to);
+    } else if (onClick) {
+      onClick();
+    }
+  };
+
+  return (
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={handleClick}
+      {...props}
+    >
+      {children}
+    </Button>
+  );
 }
 
-Button.propTypes = {
-    
-}
-
-export default Button;
+export default CustomButton;
