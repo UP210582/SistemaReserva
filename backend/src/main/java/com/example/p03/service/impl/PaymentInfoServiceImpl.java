@@ -44,4 +44,10 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
     public void deleteById(Long id) {
         paymentInfoRepository.deleteById(id);
     }
+
+    @Override
+    public List<PaymentInfoDTO> findByUserId(Long userId) {
+        List<PaymentInfo> paymentInfos = paymentInfoRepository.findByUserId(userId);
+        return paymentInfos.stream().map(paymentInfoMapper::toDTO).toList();
+    }
 }

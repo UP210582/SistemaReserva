@@ -6,10 +6,10 @@ import com.example.p03.mapper.UserMapper;
 import com.example.p03.model.User;
 import com.example.p03.repository.UserRepository;
 import com.example.p03.service.UserService;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -36,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO save(UserDTO userDTO) {
+        // Convert email to lowercase
+        userDTO.setEmail(userDTO.getEmail().toLowerCase());
+        
         User user = userMapper.toModel(userDTO);
         User savedUser = userRepository.save(user);
         return userMapper.toDTO(savedUser);
@@ -44,5 +47,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public List<UserDTO> findByName(String name) {
+        List<User> users = userRepository.findByName(name);
+        return users.stream().map(userMapper::toDTO).toList();
+    }
+
+    @Override
+    public UserDTO findByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
+        return userMapper.toDTO(user);
+    }
+
+    @Override
+    public List<Map<String, Object>> getUserReservationSummary() {
+        return userRepository.getUserReservationSummary();
     }
 }

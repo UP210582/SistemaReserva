@@ -8,6 +8,7 @@ import com.example.p03.service.ReservationService;
 import com.example.p03.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -43,5 +44,17 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void deleteById(Long id) {
         reservationRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ReservationDTO> findByUserId(Long userId) {
+        List<Reservation> reservations = reservationRepository.findByUserId(userId);
+        return reservations.stream().map(reservationMapper::toDTO).toList();
+    }
+
+    @Override
+    public List<ReservationDTO> findByDateRange(LocalDate startDate, LocalDate endDate) {
+        List<Reservation> reservations = reservationRepository.findByDateRange(startDate, endDate);
+        return reservations.stream().map(reservationMapper::toDTO).toList();
     }
 }
