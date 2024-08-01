@@ -25,11 +25,11 @@ function Hero() {
               color: 'white',
             }}
           >
-            <img src={item.content} alt={`Slide ${item.id}`} style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }} />
+            <img src={item.content} alt={'Slide ${item.id}'} style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }} />
           </Box>
         ))}
       </Carousel>
-      <CustomButton to="/reservation2" >Reservar Ahora</CustomButton>
+      <CustomButton to="/loginpage" >Reservar Ahora</CustomButton>
     </Box>
   );
 }
