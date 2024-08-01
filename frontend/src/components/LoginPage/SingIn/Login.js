@@ -1,6 +1,5 @@
 import React,{useEffect} from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -14,6 +13,7 @@ import Container from '@mui/material/Container';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { Paper } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CustomButton from '../../Button/Button';
 
 function Copyright(props) {
   return (
@@ -101,14 +101,7 @@ export default function SignIn() {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign In
-              </Button>
+               <CustomButton to="/reservinfo" >Sing in</CustomButton>
               <Grid container>
                 <Grid item>
                   <Link component={RouterLink} to="/register" variant="body2">
