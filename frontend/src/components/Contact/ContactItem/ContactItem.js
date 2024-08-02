@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Typography, Link } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom'; // Solo si usas React Router
 
 function ContactItem({ icon, text, link }) {
   return (
@@ -26,4 +25,4 @@ function ContactItem({ icon, text, link }) {
   );
 }
 
-export default ContactItem;
+export default ContactItem;

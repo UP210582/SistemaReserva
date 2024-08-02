@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@mui/material": "^5.16.6",
+    "react-material-ui-carousel": "^3.4.2"
+  }
+}
