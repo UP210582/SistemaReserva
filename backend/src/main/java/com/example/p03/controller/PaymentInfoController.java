@@ -1,7 +1,11 @@
 package com.example.p03.controller;
 
 import com.example.p03.dto.PaymentInfoDTO;
+import com.example.p03.exception.ResourceNotFoundException;
 import com.example.p03.service.PaymentInfoService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/payment-info")
+@RequestMapping("/payment-info")
+@Tag(name = "Payment Info", description = "Operaciones relacionadas con la información de pago")
 public class PaymentInfoController {
 
     private final PaymentInfoService paymentInfoService;
@@ -18,33 +23,33 @@ public class PaymentInfoController {
         this.paymentInfoService = paymentInfoService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<PaymentInfoDTO>> getAllPaymentInfo() {
+    @GetMapping("/todos")
+    public ResponseEntity<List<PaymentInfoDTO>> findAll() {
         List<PaymentInfoDTO> paymentInfos = paymentInfoService.findAll();
         return new ResponseEntity<>(paymentInfos, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PaymentInfoDTO> getPaymentInfoById(@PathVariable Long id) {
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity<PaymentInfoDTO> findById(@PathVariable Long id) throws ResourceNotFoundException {
         PaymentInfoDTO paymentInfo = paymentInfoService.findById(id);
         return new ResponseEntity<>(paymentInfo, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<PaymentInfoDTO> createPaymentInfo(@RequestBody PaymentInfoDTO paymentInfoDTO) {
-        PaymentInfoDTO createdPaymentInfo = paymentInfoService.save(paymentInfoDTO);
-        return new ResponseEntity<>(createdPaymentInfo, HttpStatus.CREATED);
+    @PostMapping("/alta")
+    public ResponseEntity<PaymentInfoDTO> save(@RequestBody PaymentInfoDTO paymentInfoDTO) {
+        PaymentInfoDTO savedPaymentInfo = paymentInfoService.save(paymentInfoDTO);
+        return new ResponseEntity<>(savedPaymentInfo, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<PaymentInfoDTO> updatePaymentInfo(@PathVariable Long id, @RequestBody PaymentInfoDTO paymentInfoDTO) {
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<PaymentInfoDTO> update(@PathVariable Long id, @RequestBody PaymentInfoDTO paymentInfoDTO) throws ResourceNotFoundException {
         paymentInfoDTO.setId(id);
         PaymentInfoDTO updatedPaymentInfo = paymentInfoService.save(paymentInfoDTO);
         return new ResponseEntity<>(updatedPaymentInfo, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePaymentInfo(@PathVariable Long id) {
+    @DeleteMapping("/baja/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         paymentInfoService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

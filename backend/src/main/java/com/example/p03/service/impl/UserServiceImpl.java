@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO save(UserDTO userDTO) {
         User user = userMapper.toModel(userDTO);
+        userDTO.setEmail(userDTO.getEmail().toLowerCase());
         User savedUser = userRepository.save(user);
         return userMapper.toDTO(savedUser);
     }
