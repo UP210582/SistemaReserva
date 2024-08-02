@@ -3,6 +3,9 @@ package com.example.p03.controller;
 import com.example.p03.dto.UserDTO;
 import com.example.p03.exception.ResourceNotFoundException;
 import com.example.p03.service.UserService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@Tag(name = "Users", description = "Operaciones relacionadas con los usuarios")
 public class UserController {
 
     private final UserService userService;
@@ -30,6 +34,7 @@ public class UserController {
         UserDTO user = userService.findById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+    
 
     @PostMapping("/alta")
     public ResponseEntity<UserDTO> save(@RequestBody UserDTO userDTO) {

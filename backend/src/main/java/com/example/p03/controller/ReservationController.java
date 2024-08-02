@@ -3,6 +3,9 @@ package com.example.p03.controller;
 import com.example.p03.dto.ReservationDTO;
 import com.example.p03.exception.ResourceNotFoundException;
 import com.example.p03.service.ReservationService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reservations")
+@Tag(name = "Reservations", description = "Operaciones relacionadas con las reservas")
 public class ReservationController {
 
     private final ReservationService reservationService;
