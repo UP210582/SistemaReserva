@@ -6,8 +6,5 @@ WORKDIR /app/
 COPY --chown=reservas package*.json .
 RUN npm install
 COPY --chown=reservas . .
-EXPOSE 5173
+EXPOSE 3000
 CMD ["npm","run", "dev"]
-#RUN npm run build
-#FROM nginx:stable-alpine
-#COPY --from=0 /app/build /usr/share/nginx/html
