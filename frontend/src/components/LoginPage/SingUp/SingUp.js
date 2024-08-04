@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,14 +15,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { Paper } from '@mui/material';
 import { useState } from 'react';
-import { useEffect } from 'react';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-      Mc Gourmet Restaurante Delicias
+        Mc Gourmet Restaurante Delicias
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -30,20 +29,9 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,6 +47,39 @@ export default function SignUp() {
       sessionStorage.removeItem('hasVisitedPaymentPage');
     };
   }, [navigate]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const userData = {
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
+      email: data.get('email'),
+      password: data.get('password'),
+    };
+
+    fetch('http://localhost:8787/users/alta', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(user => {
+        console.log('Sign up successful:', user);
+        navigate('/loginpage'); // Redirige al usuario a la página de inicio de sesión
+      })
+      .catch(error => {
+        console.error('Error during sign up:', error);
+        alert('Error durante el registro. Intenta de nuevo.');
+      });
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
