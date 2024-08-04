@@ -8,6 +8,7 @@ import com.example.p03.repository.UserRepository;
 import com.example.p03.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.List;
 
 @Service
@@ -50,4 +51,17 @@ public class UserServiceImpl implements UserService {
             throw new ResourceNotFoundException("User not found with id " + id);
         }
     }
+
+    @Override
+    public UserDTO login(String email, String password) {
+        Optional<User> optionalUser = userRepository.findByEmail(email.toLowerCase());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            if (user.getPassword().equals(password)) {
+                return userMapper.toDTO(user);
+            }
+        }
+        return null; // O lanzar una excepción si prefieres
+    }
+
 }

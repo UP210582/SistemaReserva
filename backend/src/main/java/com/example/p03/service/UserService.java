@@ -11,4 +11,5 @@ public interface UserService {
     UserDTO findById(Long id) throws ResourceNotFoundException;
     UserDTO save(UserDTO userDTO);
     void deleteById(Long id);
+    UserDTO login(String email, String password);
 }

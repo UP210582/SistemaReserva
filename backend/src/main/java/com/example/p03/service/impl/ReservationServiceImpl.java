@@ -1,6 +1,7 @@
 package com.example.p03.service.impl;
 
 import com.example.p03.dto.ReservationDTO;
+import com.example.p03.dto.UserDTO;
 import com.example.p03.exception.ResourceNotFoundException;
 import com.example.p03.mapper.ReservationMapper;
 import com.example.p03.model.Reservation;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -80,6 +82,7 @@ public class ReservationServiceImpl implements ReservationService {
                 .map(reservationMapper::toDTO)
                 .collect(Collectors.toList());
     }
+    
     @Override
     public void  deleteById(Long id){
         reservationRepository.deleteById(id);

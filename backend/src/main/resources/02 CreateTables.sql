@@ -17,7 +17,8 @@ CREATE TABLE reservations (
     reservation_time TIME NOT NULL,
     number_of_people INT NOT NULL,
     reason VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 CREATE TABLE payment_info (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,5 +27,6 @@ CREATE TABLE payment_info (
     card_number VARCHAR(20) NOT NULL,
     expiration_date DATE NOT NULL,
     cvc VARCHAR(4) NOT NULL,
-    postal_code VARCHAR(10) NOT NULL
+    postal_code VARCHAR(10) NOT NULL,
+    FOREIGN KEY (reservation_id) REFERENCES Reservations(id)
 );

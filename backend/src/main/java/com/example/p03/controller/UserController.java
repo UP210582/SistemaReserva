@@ -21,6 +21,16 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
+        UserDTO loggedInUser = userService.login(userDTO.getEmail(), userDTO.getPassword());
+        if (loggedInUser != null) {
+            return new ResponseEntity<>(loggedInUser, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
     @GetMapping("/todos")
     public ResponseEntity<List<UserDTO>> findAll() {
         List<UserDTO> users = userService.findAll();
