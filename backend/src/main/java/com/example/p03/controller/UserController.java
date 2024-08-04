@@ -3,9 +3,7 @@ package com.example.p03.controller;
 import com.example.p03.dto.UserDTO;
 import com.example.p03.exception.ResourceNotFoundException;
 import com.example.p03.service.UserService;
-
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,10 +32,11 @@ public class UserController {
         UserDTO user = userService.findById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-    
 
     @PostMapping("/alta")
     public ResponseEntity<UserDTO> save(@RequestBody UserDTO userDTO) {
+        // Convertir email a minúsculas antes de guardar
+        userDTO.setEmail(userDTO.getEmail().toLowerCase());
         UserDTO savedUser = userService.save(userDTO);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
@@ -45,6 +44,7 @@ public class UserController {
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO userDTO) throws ResourceNotFoundException {
         userDTO.setId(id);
+        userDTO.setEmail(userDTO.getEmail().toLowerCase()); // Convertir email a minúsculas antes de actualizar
         UserDTO updatedUser = userService.save(userDTO);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }

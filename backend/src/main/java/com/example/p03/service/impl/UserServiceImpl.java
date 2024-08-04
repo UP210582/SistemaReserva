@@ -6,7 +6,6 @@ import com.example.p03.mapper.UserMapper;
 import com.example.p03.model.User;
 import com.example.p03.repository.UserRepository;
 import com.example.p03.service.UserService;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,13 +36,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO save(UserDTO userDTO) {
         User user = userMapper.toModel(userDTO);
-        userDTO.setEmail(userDTO.getEmail().toLowerCase());
+        // Convertir email a minúsculas
+        user.setEmail(user.getEmail().toLowerCase());
         User savedUser = userRepository.save(user);
         return userMapper.toDTO(savedUser);
     }
 
     @Override
     public void deleteById(Long id) {
-        userRepository.deleteById(id);
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+        } else {
+            throw new ResourceNotFoundException("User not found with id " + id);
+        }
     }
 }

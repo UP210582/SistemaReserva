@@ -2,7 +2,6 @@ package com.example.p03.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -18,15 +17,15 @@ public class Reservation {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "reservation_date")
+    @Column(name = "reservation_date", nullable = false)
     private LocalDate reservationDate;
 
-    @Column(name = "reservation_time")
+    @Column(name = "reservation_time", nullable = false)
     private LocalTime reservationTime;
 
-    @Column(name = "number_of_people")
+    @Column(name = "number_of_people", nullable = false)
     private Integer numberOfPeople;
 
-    @Column(name = "reason")
+    @Column(name = "reason", nullable = false)
     private String reason;
 }

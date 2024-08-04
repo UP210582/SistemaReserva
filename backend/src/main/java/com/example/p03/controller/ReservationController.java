@@ -3,9 +3,7 @@ package com.example.p03.controller;
 import com.example.p03.dto.ReservationDTO;
 import com.example.p03.exception.ResourceNotFoundException;
 import com.example.p03.service.ReservationService;
-
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +33,12 @@ public class ReservationController {
         return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
+    @GetMapping("/buscar/userid/{id}")
+    public ResponseEntity<List<ReservationDTO>> findByUserId(@PathVariable Long id) {
+        List<ReservationDTO> reservations = reservationService.findByUserId(id);
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
+
     @PostMapping("/alta")
     public ResponseEntity<ReservationDTO> save(@RequestBody ReservationDTO reservationDTO) {
         ReservationDTO savedReservation = reservationService.save(reservationDTO);
@@ -44,7 +48,7 @@ public class ReservationController {
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<ReservationDTO> update(@PathVariable Long id, @RequestBody ReservationDTO reservationDTO) throws ResourceNotFoundException {
         reservationDTO.setId(id);
-        ReservationDTO updatedReservation = reservationService.save(reservationDTO);
+        ReservationDTO updatedReservation = reservationService.save(reservationDTO); // Usa save en lugar de update
         return new ResponseEntity<>(updatedReservation, HttpStatus.OK);
     }
 
