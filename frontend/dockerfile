@@ -1,11 +1,12 @@
 # frontend/Dockerfile
 FROM node:20.5.0-alpine3.18
 RUN addgroup -S reservasfront && adduser -S -G reservasfront reservasfront
-USER reservasfront
 WORKDIR /app/
-COPY --chown=reservas package*.json .
+COPY package*.json ./
 RUN npm install --legacy-peer-deps
-COPY --chown=reservas . .
+COPY . .
+RUN chown -R reservasfront:reservasfront /app
+USER reservasfront
 EXPOSE 5173
 CMD ["npm","run", "dev"]
 #RUN npm run build
