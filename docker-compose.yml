@@ -39,12 +39,12 @@ services:
     #command: npm test
 
 #database  
-db:
-  image: mongo:5.0.19-focal
-  ports:
-  - 27017:27017
-  volumes:
-  - gamify:/data/db
+#db:
+  #image: mongo:5.0.19-focal
+  #ports:
+  #- 27017:27017
+  #volumes:
+  #- gamify:/data/db
 
 volumes:
   gamify:
