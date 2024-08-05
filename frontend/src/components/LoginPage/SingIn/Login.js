@@ -68,6 +68,9 @@ export default function SignIn() {
       })
       .then(user => {
         console.log('Login successful:', user);
+        sessionStorage.setItem('userId', user.id);
+        sessionStorage.setItem('userLastName', user.lastName);
+        sessionStorage.setItem('userFirstName', user.firstName);
         navigate('/reservinfo');
       })
       .catch(error => {

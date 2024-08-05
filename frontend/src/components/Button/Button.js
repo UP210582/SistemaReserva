@@ -6,7 +6,6 @@ function CustomButton({ children, to, onClick, type = 'button', ...props }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    console.clear(); // Limpia la consola
     if (to) {
       navigate(to);
     } else if (onClick) {
