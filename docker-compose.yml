@@ -31,17 +31,6 @@ services:
     volumes:
     - ./db/mysql-init:/docker-entrypoint-initdb.d
     - mysql-data:/var/lib/mysql
-  #tests
-  #api-tests:
-  #image:holamundo-api
-  #environment:
-  #DB_URL: mongodb;//db/gamifytest
-  # volumes:
-  # - ./backend/app:/app/app
-  # - ./backend/tests:/app/tests
-  # depends_on:
-    # - db
-    #command: npm test
 
 volumes:
   mysql-data:
