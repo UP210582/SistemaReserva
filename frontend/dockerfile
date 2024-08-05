@@ -1,6 +1,6 @@
 # frontend/Dockerfile
 FROM node:20.5.0-alpine3.18
-RUN addgroup -S reservasfront &&-adduser -S -G reservasfront reservasfront
+RUN addgroup -S reservasfront && adduser -S -G reservasfront reservasfront
 USER reservasfront
 WORKDIR /app/
 COPY --chown=reservas package*.json .

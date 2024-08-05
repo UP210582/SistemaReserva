@@ -1,6 +1,6 @@
 # backend/Dockerfile
 FROM openjdk:17-jdk-alpine
-RUN addgroup -S reservasbackend &&-adduser -S -G reservasbackend reservasbackend
+RUN addgroup -S reservasbackend && adduser -S -G reservasbackend reservasbackend
 USER reservasbackend
 WORKDIR /app/
 COPY --chown=reservasbackend . .
