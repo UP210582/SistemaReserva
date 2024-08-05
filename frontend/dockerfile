@@ -1,14 +1,12 @@
 # frontend/Dockerfile
-FROM node:20.5.0-alpine3.18
-RUN addgroup -S reservasfront && adduser -S -G reservasfront reservasfront
+FROM node:20
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 WORKDIR /app/
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 COPY . .
 RUN chown -R reservasfront:reservasfront .
-USER reservasfront
 EXPOSE 3000
-CMD ["npm","run", "dev"]
-#RUN npm run build
-#FROM nginx:stable-alpine
-#COPY --from=0 /app/build /usr/share/nginx/html
+RUN npm run build
+FROM nginx:stable-alpine
+COPY --from=0 /app/build /usr/share/nginx/html

@@ -1,38 +1,36 @@
 version: "3.8" 
 services:
-  #frontend
-  app:
-    build: ./frontend
+  frontend:
+    build: frontend
     #host/container
     ports:
-      - 80:3000
-    #host/container
-    volumes:
-    - ./frontend/src:/app/src
-    
+      - 3000:3000
     #Definir variable de entorno
     environment:
-      VITE_API_URL: http://138.68.16.73:8787
-
-  #backend    
-  api:
-    build: ./backend
+      - NODE_OPTIONS=--max-old-space-size=4096    
+    
+    
+  backend:
+    build: backend
     ports:
-      - 8787:8787
-    environment:
-      DB_URL: mongodb://db/gamify
-    volumes:
-      - ./backend/app:/app/app
+      - 8787:${BACKEND_PORT}
     depends_on:
       - db
+
   #database     
   db:
-    image: mongo:5.0.19-focal
+    image: mysql:5.7
+    command: --explicit_defaults_for_timestamp=ON
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD : ${MYSQL_PASSWORD}
     ports:
-    - 8787:8787
+    - 3306:3306
     volumes:
-    - gamify:/data/db
-
+    - ./db/mysql-init:/docker-entrypoint-initdb.d
+    - mysql-data:/var/lib/mysql
   #tests
   #api-tests:
   #image:holamundo-api
@@ -46,4 +44,4 @@ services:
     #command: npm test
 
 volumes:
-  gamify:
+  mysql-data:
