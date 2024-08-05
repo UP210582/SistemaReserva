@@ -18,7 +18,7 @@ services:
   api:
     build: ./backend
     ports:
-      - 3000:3000
+      - 8787:8787
     environment:
       DB_URL: mongodb://db/gamify
     volumes:

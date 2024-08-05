@@ -1,10 +1,9 @@
-# frontend/Dockerfile
-FROM node:20.5.0-alpine3.18
-RUN addgroup reservasfront &&-adduser -S -G reservasfront reservasfront
-USER reservasfront
+# backend/Dockerfile
+FROM openjdk:17-jdk-alpine
+RUN addgroup reservasbackend &&-adduser -S -G reservasbackend reservasbackend
+USER reservasbackend
 WORKDIR /app/
-COPY --chown=reservas package*.json .
-RUN npm install
-COPY --chown=reservas . .
-EXPOSE 3000
-CMD ["npm","run", "dev"]
+COPY --chown=reservasbackend . .
+RUN chmod +x gradlew
+EXPOSE 8787
+CMD ["./gradlew","bootRun"]
