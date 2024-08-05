@@ -5,14 +5,14 @@ services:
     build: ./frontend
     #host/container
     ports:
-      - 80:5173
+      - 80:3000
     #host/container
     volumes:
     - ./frontend/src:/app/src
     
     #Definir variable de entorno
     environment:
-      VITE_API_URL: http://138.68.16.73:3000
+      VITE_API_URL: http://138.68.16.73:8787
 
   #backend    
   api:
@@ -29,7 +29,7 @@ services:
   db:
     image: mongo:5.0.19-focal
     ports:
-    - 27017:27017
+    - 8787:8787
     volumes:
     - gamify:/data/db
 

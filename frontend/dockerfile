@@ -5,9 +5,9 @@ WORKDIR /app/
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 COPY . .
-RUN chown -R reservasfront:reservasfront /app
+RUN chown -R reservasfront:reservasfront .
 USER reservasfront
-EXPOSE 5173
+EXPOSE 3000
 CMD ["npm","run", "dev"]
 #RUN npm run build
 #FROM nginx:stable-alpine
