@@ -25,9 +25,16 @@ services:
       - ./backend/app:/app/app
     depends_on:
       - db
+  #database     
+  db:
+  image: mongo:5.0.19-focal
+  ports:
+  - 27017:27017
+  volumes:
+  - gamify:/data/db
 
-#tests
-#api-tests:
+  #tests
+  #api-tests:
   #image:holamundo-api
   #environment:
   #DB_URL: mongodb;//db/gamifytest
@@ -37,14 +44,6 @@ services:
   # depends_on:
     # - db
     #command: npm test
-
-#database  
-#db:
-  #image: mongo:5.0.19-focal
-  #ports:
-  #- 27017:27017
-  #volumes:
-  #- gamify:/data/db
 
 volumes:
   gamify:
