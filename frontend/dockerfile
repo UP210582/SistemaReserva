@@ -4,7 +4,7 @@ RUN addgroup -S reservasfront && adduser -S -G reservasfront reservasfront
 USER reservasfront
 WORKDIR /app/
 COPY --chown=reservas package*.json .
-RUN npm install
+RUN npm install --legacy-peer-deps
 COPY --chown=reservas . .
 EXPOSE 5173
 CMD ["npm","run", "dev"]
