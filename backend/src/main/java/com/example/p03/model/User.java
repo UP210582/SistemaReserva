@@ -2,8 +2,8 @@ package com.example.p03.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -30,4 +30,13 @@ public class User {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "user")
+    private List<Reservation> reservations;
+
+    @PrePersist
+    @PreUpdate
+    public void formatEmail() {
+        this.email = this.email.toLowerCase();
+    }
 }

@@ -1,7 +1,7 @@
 -- Base de datos: restaurant_reservations
 use restaurant_reservations;
 
-CREATE TABLE Users (
+CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE Users (
     phone_number VARCHAR(20),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-CREATE TABLE Reservations (
+CREATE TABLE reservations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     reservation_date DATE NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE Reservations (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
-CREATE TABLE PaymentInfo (
+CREATE TABLE payment_info (
     id INT AUTO_INCREMENT PRIMARY KEY,
     reservation_id INT,
     card_name VARCHAR(100) NOT NULL,

@@ -2,11 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
-function CustomButton({ children, to, onClick, ...props }) {
+function CustomButton({ children, to, onClick, type = 'button', ...props }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    console.clear(); // Limpia la consola
     if (to) {
       navigate(to);
     } else if (onClick) {
@@ -16,6 +15,7 @@ function CustomButton({ children, to, onClick, ...props }) {
 
   return (
     <Button
+      type={type} // Establecer el tipo del botón
       variant="contained"
       color="primary"
       onClick={handleClick}

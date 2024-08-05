@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /frontend/node_modules/
+nada/
 
 # testing
 /coverage

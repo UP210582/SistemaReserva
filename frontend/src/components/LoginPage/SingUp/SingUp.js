@@ -14,6 +14,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { Paper } from '@mui/material';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 function Copyright(props) {
   return (
@@ -41,6 +43,22 @@ export default function SignUp() {
       password: data.get('password'),
     });
   };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const hasVisited = sessionStorage.getItem('hasVisitedPaymentPage');
+
+    if (hasVisited) {
+      navigate('/');
+    } else {
+      sessionStorage.setItem('hasVisitedPaymentPage', 'true');
+    }
+
+    return () => {
+      sessionStorage.removeItem('hasVisitedPaymentPage');
+    };
+  }, [navigate]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
