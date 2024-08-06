@@ -66,6 +66,8 @@ function ReservationsPage() {
 
   const handleDelete = async (id) => {
     try {
+      await fetch(`${BASE_URL}/payment_info/baja/reservation_id/${id}`, { method: 'DELETE' });
+
       await fetch(`${BASE_URL}/reservations/baja/${id}`, { method: 'DELETE' });
       setReservations(reservations.filter((reservation) => reservation.id !== id));
     } catch (error) {

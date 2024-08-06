@@ -76,6 +76,7 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationMapper.toDTO(savedReservation);
     }
 
+    //"Lambda"
     @Override
     public List<ReservationDTO> findByUserId(Long userId) {
         return reservationRepository.findByUserId(userId).stream()

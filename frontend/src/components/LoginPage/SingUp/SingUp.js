@@ -14,15 +14,15 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { Paper } from '@mui/material';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
+// Componente de Copyright
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-      Mc Gourmet Restaurante Delicias
+        Mc Gourmet Restaurante Delicias
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -30,21 +30,48 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
+// Configuración del tema por defecto
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+
+  // Función para manejar el envío del formulario
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+
+    // Recolecta los datos del formulario
+    const userData = {
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
-    });
-  };
+    };
 
-  const navigate = useNavigate();
+    try {
+      // Enviar datos al backend
+      const response = await fetch('http://localhost:8787/users/alta', { // URL corregida
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      console.log('User created:', result);
+
+      // Redireccionar después de la creación
+      navigate('/loginpage'); // Redirige a la página de inicio de sesión
+    } catch (error) {
+      console.error('Error creating user:', error);
+    }
+  };
 
   useEffect(() => {
     const hasVisited = sessionStorage.getItem('hasVisitedPaymentPage');

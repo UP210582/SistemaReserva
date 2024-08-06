@@ -51,4 +51,11 @@ public class PaymentInfoController {
         paymentInfoService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @DeleteMapping("/baja/reservation_id/{reservationId}")
+    public ResponseEntity<Void> deleteByReservationId(@PathVariable Long reservationId) {
+        paymentInfoService.deleteByReservationId(reservationId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

@@ -6,4 +6,5 @@ import com.example.p03.model.PaymentInfo;
 
 @Repository
 public interface PaymentInfoRepository extends JpaRepository<PaymentInfo, Long> {
+    void deleteByReservationId(Long reservationId);
 }

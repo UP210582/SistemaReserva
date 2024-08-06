@@ -13,7 +13,7 @@ function ReservationPage() {
     const hasVisited = sessionStorage.getItem('hasVisitedPaymentPage');
 
     if (hasVisited) {
-      navigate('/');
+      navigate('/reservinfo');
     } else {
       sessionStorage.setItem('hasVisitedPaymentPage', 'true');
     }
@@ -31,7 +31,7 @@ function ReservationPage() {
         <ReservationForm />
         <AvailableReservations />
         <Box sx={{ mt: '25px' }}>
-          <CustomButton to="/">Cancelar</CustomButton>
+          <CustomButton to="/reservinfo">Cancelar</CustomButton>
         </Box>
       </Paper>
     </Container>

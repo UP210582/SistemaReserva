@@ -9,5 +9,5 @@ public interface PaymentInfoService {
     PaymentInfoDTO findById(Long id) throws ResourceNotFoundException;
     PaymentInfoDTO save(PaymentInfoDTO paymentInfoDTO);
     void deleteById(Long id);
-    
+    void deleteByReservationId(Long reservationId);
 }

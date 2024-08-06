@@ -43,26 +43,23 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
     @Override
     public PaymentInfoDTO save(PaymentInfoDTO paymentInfoDTO) {
         PaymentInfo paymentInfo;
-
+    
         if (paymentInfoDTO.getId() != null) {
-            // Verifica si la reserva existe antes de actualizar
             paymentInfo = paymentInfoRepository.findById(paymentInfoDTO.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("PaymentInfo not found with id: " + paymentInfoDTO.getId()));
-
-            // Actualiza los campos
+    
             paymentInfo.setCardName(paymentInfoDTO.getCardName());
             paymentInfo.setCardNumber(paymentInfoDTO.getCardNumber());
-            paymentInfo.setExpirationDate(paymentInfoDTO.getExpirationDate());
+            paymentInfo.setExpiration_date(paymentInfoDTO.getExpiration_date()); // Ensure this line correctly sets the date
             paymentInfo.setCvc(paymentInfoDTO.getCvc());
-
-            // Actualiza el usuario si se proporciona
+            paymentInfo.setPostalCode(paymentInfoDTO.getPostalCode());
+    
             if (paymentInfoDTO.getReservationId() != null) {
                 Reservation reservation = reservationRepository.findById(paymentInfoDTO.getReservationId())
                     .orElseThrow(() -> new ResourceNotFoundException("Reservation not found with id: " + paymentInfoDTO.getReservationId()));
                 paymentInfo.setReservation(reservation);
             }
         } else {
-            // Crea una nueva reserva
             paymentInfo = paymentInfoMapper.toModel(paymentInfoDTO);
             if (paymentInfoDTO.getReservationId() != null) {
                 Reservation reservation = reservationRepository.findById(paymentInfoDTO.getReservationId())
@@ -70,13 +67,19 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
                 paymentInfo.setReservation(reservation);
             }
         }
-
+    
         PaymentInfo savedPaymentInfo = paymentInfoRepository.save(paymentInfo);
         return paymentInfoMapper.toDTO(savedPaymentInfo);
     }
+    
 
     @Override
     public void deleteById(Long id) {
         paymentInfoRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteByReservationId(Long reservationId) {
+        paymentInfoRepository.deleteByReservationId(reservationId);
     }
 }

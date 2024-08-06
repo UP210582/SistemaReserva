@@ -23,8 +23,8 @@ public class PaymentInfo {
     @Column(name = "card_number")
     private String cardNumber;
 
-    @Column(name = "expiration_date")
-    private LocalDate expirationDate;
+    @Column(name = "expiration_date", nullable = false)
+    private String expiration_date;
 
     @Column(name = "cvc")
     private String cvc;

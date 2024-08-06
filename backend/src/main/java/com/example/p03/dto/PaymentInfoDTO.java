@@ -9,7 +9,7 @@ public class PaymentInfoDTO {
     private Long reservationId;
     private String cardName;
     private String cardNumber;
-    private LocalDate expirationDate;
+    private String expiration_date;
     private String cvc;
     private String postalCode;
 }
