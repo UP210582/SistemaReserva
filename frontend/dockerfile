@@ -5,7 +5,6 @@ WORKDIR /app/
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 COPY . .
-RUN chown -R reservasfront:reservasfront .
 EXPOSE 3000
 RUN npm run build
 FROM nginx:stable-alpine
