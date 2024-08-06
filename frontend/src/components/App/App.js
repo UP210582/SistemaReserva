@@ -4,7 +4,8 @@ import HomePage from '../HomePage';
 import ReservPage2 from '../ReservPage2';
 import PaymentPage from '../PaymentPage';
 import Login from '../LoginPage/SingIn';
-import SingUp from '../LoginPage/SingUp'
+import SingUp from '../LoginPage/SingUp';
+import ReservInfo from '../ReservInfo';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/loginpage" element={<Login />} />
           <Route path="/register" element={<SingUp />} />
+          <Route path="/reservinfo" element={<ReservInfo />} />
           <Route path="/reservation2" element={<ReservPage2 />} />
           <Route path="/payment" element={<PaymentPage />} />
         </Routes>

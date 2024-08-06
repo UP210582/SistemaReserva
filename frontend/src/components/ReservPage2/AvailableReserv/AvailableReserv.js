@@ -1,5 +1,17 @@
 import React from 'react';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, Grid } from '@mui/material';
+
+// Función para generar horarios aleatorios no disponibles
+const getRandomUnavailableTimes = (allTimes, count) => {
+  const times = [...allTimes];
+  const unavailableTimes = [];
+  while (unavailableTimes.length < count) {
+    const randomIndex = Math.floor(Math.random() * times.length);
+    const time = times.splice(randomIndex, 1)[0];
+    unavailableTimes.push(time);
+  }
+  return unavailableTimes;
+};
 
 function AvailableReservations() {
   const today = new Date();
@@ -23,35 +35,40 @@ function AvailableReservations() {
     return `${hour.toString().padStart(2, '0')}:00`;
   });
 
-  // Ejemplo de horarios no disponibles
-  const unavailableTimes = ['14:00', '16:00']; // Estos horarios están marcados como no disponibles
+  // Generar horarios no disponibles de forma aleatoria
+  const unavailableTimes = getRandomUnavailableTimes(availableTimes, 3); // Ejemplo: seleccionar 3 horarios aleatorios no disponibles
 
   return (
-    <>
-      <Typography variant="h6" sx={{ mt: 3 }}>Reservas disponibles</Typography>
+    <Box sx={{ p: 3 }}>
+      <Typography variant="h6" sx={{ mb: 3 }}>Reservas disponibles</Typography>
       {availableDates.map((date) => (
-        <Box key={date} sx={{ mt: 2 }}>
-          <Typography variant="subtitle1">{date}</Typography>
-          <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
+        <Box key={date} sx={{ mb: 4 }}>
+          <Typography variant="subtitle1" sx={{ mb: 1 }}>{date}</Typography>
+          <Grid container spacing={2}>
             {availableTimes.map((time) => (
-              <Typography
-                key={time}
-                sx={{
-                  padding: '8px 16px',
-                  borderRadius: '4px',
-                  backgroundColor: unavailableTimes.includes(time) ? 'lightcoral' : 'lightgreen',
-                  color: unavailableTimes.includes(time) ? 'white' : 'black',
-                  textAlign: 'center',
-                  cursor: 'default',
-                }}
-              >
-                {time}
-              </Typography>
+              <Grid item xs={6} sm={4} md={3} lg={2} key={time}>
+                <Box
+                  sx={{
+                    padding: '8px',
+                    borderRadius: '4px',
+                    backgroundColor: unavailableTimes.includes(time) ? 'lightcoral' : 'lightgreen',
+                    color: unavailableTimes.includes(time) ? 'white' : 'black',
+                    textAlign: 'center',
+                    cursor: 'default',
+                    fontSize: '0.875rem', // Ajustar el tamaño del texto para pantallas pequeñas
+                    whiteSpace: 'nowrap', // Evitar el texto en varias líneas
+                    overflow: 'hidden', // Ocultar texto que no cabe
+                    textOverflow: 'ellipsis' // Mostrar "..." cuando el texto es demasiado largo
+                  }}
+                >
+                  {time}
+                </Box>
+              </Grid>
             ))}
-          </Box>
+          </Grid>
         </Box>
       ))}
-    </>
+    </Box>
   );
 }
 
