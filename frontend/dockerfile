@@ -5,9 +5,9 @@ WORKDIR /app/
 COPY package*.json ./
 RUN npm update --force
 COPY . .
-EXPOSE 3000
 RUN npm install react react-dom --force
 RUN npm install --save-dev @babel/plugin-proposal-private-property-in-object --force
 RUN npm run build
 FROM nginx:stable-alpine
 COPY --from=0 /app/build /usr/share/nginx/html
+EXPOSE 3000
