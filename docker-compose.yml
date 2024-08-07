@@ -1,0 +1,36 @@
+version: "3.8" 
+services:
+  frontend:
+    build: frontend
+    #host/container
+    ports:
+      - 3000:3000
+    #Definir variable de entorno
+    environment:
+      - NODE_OPTIONS=--max-old-space-size=4096    
+    
+    
+  backend:
+    build: backend
+    ports:
+      - 8787:${BACKEND_PORT}
+    depends_on:
+      - db
+
+  #database     
+  db:
+    image: mysql:5.7
+    command: --explicit_defaults_for_timestamp=ON
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD : ${MYSQL_PASSWORD}
+    ports:
+    - 3306:3306
+    volumes:
+    - ./db/mysql-init:/docker-entrypoint-initdb.d
+    - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
