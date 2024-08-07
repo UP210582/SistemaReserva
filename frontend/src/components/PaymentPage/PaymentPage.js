@@ -6,7 +6,7 @@ import CustomButton from '../Button';
 import { Container, Paper, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-const BASE_URL = 'http://localhost:8787';
+const BASE_URL = 'http://146.190.1.249:8080';
 
 function PaymentPage() {
   const navigate = useNavigate();

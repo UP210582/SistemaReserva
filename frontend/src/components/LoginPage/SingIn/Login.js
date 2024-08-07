@@ -53,7 +53,7 @@ export default function SignIn() {
     const email = data.get('email');
     const password = data.get('password');
 
-    fetch('http://localhost:8787/users/login', {
+    fetch('http://146.190.1.249:8080/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
