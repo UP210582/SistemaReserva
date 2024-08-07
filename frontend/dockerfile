@@ -6,6 +6,6 @@ COPY package*.json ./
 RUN npm update --force
 COPY . .
 EXPOSE 3000
-RUN npm run build
+RUN npm start
 FROM nginx:stable-alpine
 COPY --from=0 /app/build /usr/share/nginx/html
