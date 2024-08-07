@@ -51,7 +51,7 @@ export default function SignUp() {
 
     try {
       // Enviar datos al backend
-      const response = await fetch('http://localhost:8787/users/alta', { // URL corregida
+      const response = await fetch('http://138.68.16.73:8787/users/alta', { // URL corregida
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

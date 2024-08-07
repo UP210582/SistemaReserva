@@ -23,7 +23,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CustomButton from '../Button';
 
-const BASE_URL = 'http://localhost:8787';
+const BASE_URL = 'http://138.68.16.73:8787';
 
 function ReservationsPage() {
   const [userName, setUserName] = useState('');
