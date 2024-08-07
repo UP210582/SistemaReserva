@@ -5,6 +5,11 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+#BACKEND
+backend/.gradle/
+backend/bin/
+backend/build/
+
 ### STS ###
 .apt_generated
 .classpath
