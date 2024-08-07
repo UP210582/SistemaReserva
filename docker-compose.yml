@@ -4,7 +4,7 @@ services:
     build: frontend
     #host/container
     ports:
-      - 3000:3000
+      - 80:80
     #Definir variable de entorno
     environment:
       - NODE_OPTIONS=--max-old-space-size=4096    
