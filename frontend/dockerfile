@@ -3,8 +3,10 @@ FROM node:20
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 WORKDIR /app/
 COPY package*.json ./
-RUN npm install
+RUN npm update --force
 COPY . .
+RUN npm install react react-dom --force
+RUN npm install --save-dev @babel/plugin-proposal-private-property-in-object --force
 RUN npm run build
 FROM nginx:stable-alpine
 COPY --from=0 /app/build /usr/share/nginx/html
