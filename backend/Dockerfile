@@ -6,4 +6,4 @@ WORKDIR /app/
 COPY p03-0.0.1-SNAPSHOT.jar .
 COPY --chown=reservasbackend . .
 ENTRYPOINT [ "java","-jar","/app/p03-0.0.1-SNAPSHOT.jar" ]
-EXPOSE 8787
+EXPOSE 8080
