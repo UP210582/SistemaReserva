@@ -1,11 +1,5 @@
 CREATE DATABASE IF NOT EXISTS restaurant_reservations;
 
-CREATE USER 'restaurant'@'138.68.16.73' IDENTIFIED BY 'restaurant';
-
-GRANT ALL PRIVILEGES ON restaurant_reservations.* TO 'restaurant'@'138.68.16.73';
-
-flush privileges;
-
 use restaurant_reservations;
 
 CREATE TABLE users (
