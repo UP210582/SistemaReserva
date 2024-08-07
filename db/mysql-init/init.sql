@@ -1,5 +1,7 @@
 CREATE DATABASE IF NOT EXISTS restaurant_reservations;
 USE restaurant_reservations;
+GRANT ALL PRIVILEGES ON restaurant_reservations.* TO 'restaurant'@'localhost';
+
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
