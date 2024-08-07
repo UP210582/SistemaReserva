@@ -13,7 +13,7 @@ services:
   backend:
     build: backend
     ports:
-      - 8787:${BACKEND_PORT}
+      - 8787:8787
     depends_on:
       - db
 
