@@ -10,7 +10,7 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     phone_number VARCHAR(20),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+)ENGINE=InnoDB;
 CREATE TABLE reservations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
@@ -20,7 +20,7 @@ CREATE TABLE reservations (
     reason VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(id)
-);
+)ENGINE=InnoDB;
 CREATE TABLE payment_info (
     id INT AUTO_INCREMENT PRIMARY KEY,
     reservation_id INT,
@@ -30,7 +30,7 @@ CREATE TABLE payment_info (
     cvc VARCHAR(4) NOT NULL,
     postal_code VARCHAR(10) NOT NULL,
     FOREIGN KEY (reservation_id) REFERENCES Reservations(id)
-);
+)ENGINE=InnoDB;
 
 use restaurant_reservations;
 
