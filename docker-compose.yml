@@ -6,8 +6,8 @@ services:
     ports:
       - 80:80
     #Definir variable de entorno
-    environment:
-      - NODE_OPTIONS=--max-old-space-size=4096    
+    volumes:
+      - ./frontend/src:/app/src   
     
     
   backend:
