@@ -8,6 +8,8 @@ services:
     #Definir variable de entorno
     environment:
       - NODE_OPTIONS=--max-old-space-size=4096    
+    depends_on:
+      backend
     
     
   backend:
@@ -19,7 +21,7 @@ services:
 
   #database     
   db:
-    image: mysql:latest
+    image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -29,7 +31,6 @@ services:
       - "3306:${MYSQL_PORT}"
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - mysql-data:/var/lib/mysql
 
 volumes:
   mysql-data:
