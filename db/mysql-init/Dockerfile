@@ -4,5 +4,5 @@ ENV MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 ENV MYSQL_DATABASE: ${MYSQL_DATABASE}
 ENV MYSQL_USER: ${MYSQL_USER}
 ENV MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-COPY ./init.sql .
-
+COPY ./init.sql /docker-entrypoint-initdb.d/
+RUN apt-get update && apt-get install -y mysql-client
