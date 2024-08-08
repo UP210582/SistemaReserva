@@ -1,7 +1,11 @@
 # frontend/Dockerfile
-FROM node:20.5.0-alpine3.18
+FROM node:20
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 WORKDIR /app/
-COPY --chown=front package*.json .
+COPY package*.json ./
 RUN npm install --force
-CMD ["npm", "run", "start"]
-EXPOSE 80
+COPY . .
+RUN npm run build
+FROM nginx:stable-alpine
+COPY --from=0 /app/build /usr/share/nginx/html
+COPY nginx.conf ./
