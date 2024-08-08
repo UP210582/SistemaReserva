@@ -19,12 +19,11 @@ services:
 
   #database     
   db:
-    build: db/mysql-init
+    build: db/mysql-init/init.sql
     ports:
     - 3306:3306
     volumes:
-    - ./db/mysql-init:/docker-entrypoint-initdb.d
-    - mysql-data:/var/lib/mysql
+    - ./db/mysql-init/init.sql
 
 volumes:
   mysql-data:
