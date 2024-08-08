@@ -9,7 +9,7 @@ services:
     environment:
       - NODE_OPTIONS=--max-old-space-size=4096    
     depends_on:
-      backend
+      - backend
     
     
   backend:
