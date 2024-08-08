@@ -26,7 +26,7 @@ CREATE TABLE payment_info (
     reservation_id INT,
     card_name VARCHAR(100) NOT NULL,
     card_number VARCHAR(20) NOT NULL,
-    expiration_date DATE NOT NULL,
+    expiration_date VARCHAR(5) NOT NULL,
     cvc VARCHAR(4) NOT NULL,
     postal_code VARCHAR(10) NOT NULL,
     FOREIGN KEY (reservation_id) REFERENCES reservations(id)
