@@ -19,7 +19,7 @@ CREATE TABLE reservations (
     number_of_people INT NOT NULL,
     reason VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
 )ENGINE=InnoDB;
 CREATE TABLE payment_info (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -29,7 +29,7 @@ CREATE TABLE payment_info (
     expiration_date DATE NOT NULL,
     cvc VARCHAR(4) NOT NULL,
     postal_code VARCHAR(10) NOT NULL,
-    FOREIGN KEY (reservation_id) REFERENCES Reservations(id)
+    FOREIGN KEY (reservation_id) REFERENCES reservations(id)
 )ENGINE=InnoDB;
 
 use restaurant_reservations;
