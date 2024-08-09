@@ -1,5 +1,6 @@
 # backend/Dockerfile
 FROM openjdk:17-jdk-alpine3.14
+RUN apk update && apk add --no-cache mysql mysql-client
 RUN addgroup backend && adduser -S -G backend backend
 USER backend
 WORKDIR /app

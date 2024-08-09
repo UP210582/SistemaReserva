@@ -27,6 +27,18 @@ public class ReservationController {
         return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
 
+    @GetMapping("/activas")
+    public ResponseEntity<List<ReservationDTO>> findActiveReservations() {
+        List<ReservationDTO> reservations = reservationService.findActiveReservations();
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
+
+    @GetMapping("/buscar/activo/userid/{id}")
+    public ResponseEntity<List<ReservationDTO>> findActiveByUserId(@PathVariable Long id) {
+        List<ReservationDTO> reservations = reservationService.findActiveReservationsByUserId(id);
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
+
     @GetMapping("/buscar/{id}")
     public ResponseEntity<ReservationDTO> findById(@PathVariable Long id) throws ResourceNotFoundException {
         ReservationDTO reservation = reservationService.findById(id);

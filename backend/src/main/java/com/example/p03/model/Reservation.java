@@ -28,4 +28,7 @@ public class Reservation {
 
     @Column(name = "reason", nullable = false)
     private String reason;
+
+    @Column(name = "status", nullable = false)
+    private String status;
 }

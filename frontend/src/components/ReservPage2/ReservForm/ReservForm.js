@@ -8,7 +8,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useNavigate } from 'react-router-dom';
 import ReservationReason from '../ReasonReserv'; // Importa el nuevo componente
 
-const BASE_URL = 'http://localhost:8787';
+const BASE_URL = 'http://localhost:8080';
 
 function ReservationForm() {
   const navigate = useNavigate();
