@@ -1,38 +1,26 @@
 version: '3'
-
 services:
-
   frontend:
-
     build: frontend
-
     ports:
-
-      - 3000:3000
-
+      - 3000:80
     volumes:
       - ./frontend/src:/app/src
-
     depends_on:
       - backend
-
   backend:
-
     build: backend
-
     ports:
-
       - 8080:8080
-
     depends_on:
       - db
-
+    entrypoint: ["java","-jar","/app.jar"]
   db:
     build: db/mysql-init
     ports:
       - 3306:3306
     volumes:
-      - ./db/mysql-init/init.sql:/docker-entrypoint-initdb/init.sql
+      #- ./db/mysql-init/init.sql:/docker-entrypoint-initdb/init.sql
       - mysql-data:/var/lib/mysql
     env_file:
       - ./db/mysql-init/.env

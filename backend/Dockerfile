@@ -1,10 +1,14 @@
-# backend/Dockerfile
-FROM openjdk:17-jdk-alpine3.14
-RUN apk update && apk add --no-cache mysql mysql-client
-RUN addgroup backend && adduser -S -G backend backend
-USER backend
-WORKDIR /app
-#COPY --chown=backend /backend/build/libs/ .
-COPY p03-0.0.1-SNAPSHOT.jar .
-ENTRYPOINT ["java","-jar","/app/p03-0.0.1-SNAPSHOT.jar"]
+FROM openjdk:17-jdk-slim
+VOLUME /tmp
 EXPOSE 8080
+
+ARG JAR_FILE=*.jar
+COPY ${JAR_FILE} app.jar
+
+# Install default-mysql-client
+RUN apt-get update && apt-get install -y default-mysql-client
+
+RUN addgroup --system spring && adduser --system spring --ingroup spring
+USER spring:spring
+
+ENTRYPOINT ["java", "-jar", "/app.jar"]
