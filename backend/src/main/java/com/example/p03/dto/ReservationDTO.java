@@ -14,4 +14,5 @@ public class ReservationDTO {
     private LocalTime reservationTime;
     private Integer numberOfPeople;
     private String reason;
+    private String status;
 }

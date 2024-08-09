@@ -1,12 +1,8 @@
-# frontend/Dockerfile
-FROM node:20
-ENV NODE_OPTIONS="--max-old-space-size=4096"
+FROM node:20.5.0-alpine3.18
+RUN addgroup front && adduser -S -G front front
+USER front
 WORKDIR /app/
-COPY package*.json ./
-RUN npm update --force
-COPY . .
-RUN npm install react react-dom --force
-RUN npm install --save-dev @babel/plugin-proposal-private-property-in-object --force
-RUN npm run build
-FROM nginx:stable-alpine
-COPY --from=0 /app/build /usr/share/nginx/html
+COPY --chown=front package*.json .
+RUN npm install --legacy-peer-deps
+COPY --chown=front . .
+CMD ["npm", "run", "start"]

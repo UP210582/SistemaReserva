@@ -35,6 +35,18 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public List<ReservationDTO> findActiveReservations() {
+        List<Reservation> activeReservations = reservationRepository.findByStatus("activo");
+        return activeReservations.stream().map(reservationMapper::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReservationDTO> findActiveReservationsByUserId(Long userId) {
+        List<Reservation> activeReservations = reservationRepository.findByUserIdAndStatus(userId, "activo");
+        return activeReservations.stream().map(reservationMapper::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
     public ReservationDTO findById(Long id) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Reservation not found with id: " + id));
@@ -55,6 +67,7 @@ public class ReservationServiceImpl implements ReservationService {
             reservation.setReservationTime(reservationDTO.getReservationTime());
             reservation.setNumberOfPeople(reservationDTO.getNumberOfPeople());
             reservation.setReason(reservationDTO.getReason());
+            reservation.setStatus(reservationDTO.getStatus()); // Update status
 
             // Update user if provided
             if (reservationDTO.getUserId() != null) {
@@ -65,6 +78,7 @@ public class ReservationServiceImpl implements ReservationService {
         } else {
             // Create a new reservation
             reservation = reservationMapper.toModel(reservationDTO);
+            reservation.setStatus("activo"); // Set default status to active
             if (reservationDTO.getUserId() != null) {
                 User user = userRepository.findById(reservationDTO.getUserId())
                     .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + reservationDTO.getUserId()));

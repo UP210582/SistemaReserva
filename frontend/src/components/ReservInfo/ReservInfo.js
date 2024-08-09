@@ -23,7 +23,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CustomButton from '../Button';
 
-const BASE_URL = 'http://146.190.1.249:8080';
+const BASE_URL = 'http://localhost:8080';
 
 function ReservationsPage() {
   const [userName, setUserName] = useState('');
@@ -55,10 +55,9 @@ function ReservationsPage() {
 
   const fetchReservations = async (userId) => {
     try {
-      const response = await fetch(`${BASE_URL}/reservations/buscar/userid/${userId}`);
+      const response = await fetch(`${BASE_URL}/reservations/buscar/activo/userid/${userId}`);
       const data = await response.json();
-      console.log('Fetched data:', data); // Log fetched data
-      setReservations(data);
+      setReservations(data.filter(reservation => reservation.status === 'activo'));
     } catch (error) {
       console.error('Error fetching reservations:', error);
     }
@@ -66,10 +65,25 @@ function ReservationsPage() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`${BASE_URL}/payment_info/baja/reservation_id/${id}`, { method: 'DELETE' });
-
-      await fetch(`${BASE_URL}/reservations/baja/${id}`, { method: 'DELETE' });
-      setReservations(reservations.filter((reservation) => reservation.id !== id));
+      const reservationData = {
+        reservationDate: "2024-08-08",
+        reservationTime: "00:00:00",
+        numberOfPeople: 0,
+        reason: "string",
+        status: 'inactivo',
+      };
+  
+      const response = await fetch(`${BASE_URL}/reservations/actualizar/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(reservationData),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error updating reservation');
+      }
+  
+      fetchReservations(sessionStorage.getItem('userId'));
     } catch (error) {
       console.error('Error deleting reservation:', error);
     }
@@ -78,9 +92,9 @@ function ReservationsPage() {
   const handleEdit = (reservation) => {
     setSelectedReservation(reservation);
     setFormData({
-      date: reservation.date,
-      hour: reservation.hour,
-      people: reservation.people,
+      date: reservation.reservationDate,
+      hour: reservation.reservationTime.substring(0, 5), // Truncar para mostrar solo "HH:mm"
+      people: reservation.numberOfPeople,
       reason: reservation.reason,
     });
     setOpenDialog(true);
@@ -93,23 +107,55 @@ function ReservationsPage() {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === 'date') {
+      const today = new Date().toISOString().split('T')[0];
+      if (value < today) {
+        alert('No puedes seleccionar una fecha pasada.');
+        return;
+      }
+    }
+
+    if (name === 'people') {
+      if (value < 1 || value > 10) {
+        alert('La cantidad de personas debe estar entre 1 y 10.');
+        return;
+      }
+    }
+
+    if (name === 'reason') {
+      const validReasons = ['Celebracion', 'Negocios', 'Casual'];
+      if (!validReasons.includes(value)) {
+        alert('Razón inválida. Las opciones válidas son: Celebracion, Negocios, Casual.');
+        return;
+      }
+    }
+
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSave = async () => {
     const userId = sessionStorage.getItem('userId');
     try {
+      const reservationData = {
+        reservationDate: formData.date,
+        reservationTime: `${formData.hour}:00`, // Formato HH:mm:ss
+        numberOfPeople: formData.people,
+        reason: formData.reason,
+        status: 'activo',
+      };
+
       if (selectedReservation) {
         await fetch(`${BASE_URL}/reservations/actualizar/${selectedReservation.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...formData, userId }),
+          body: JSON.stringify(reservationData),
         });
       } else {
         await fetch(`${BASE_URL}/reservations/alta`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...formData, userId }),
+          body: JSON.stringify({ ...reservationData, userId }),
         });
       }
       fetchReservations(userId);
@@ -120,12 +166,11 @@ function ReservationsPage() {
   };
 
   const formatDate = (dateArray) => {
-    console.log('Raw dateArray:', dateArray); // Log raw date array
     if (Array.isArray(dateArray) && dateArray.length === 3) {
       const [year, month, day] = dateArray;
       return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     }
-    return ''; // Return empty string if format is incorrect
+    return '';
   };
 
   return (
@@ -222,7 +267,15 @@ function ReservationsPage() {
               variant="standard"
               value={formData.reason}
               onChange={handleFormChange}
-            />
+              select
+              SelectProps={{
+                native: true,
+              }}
+            >
+              <option value="Celebracion">Celebracion</option>
+              <option value="Negocios">Negocios</option>
+              <option value="Casual">Casual</option>
+            </TextField>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseDialog}>Cancel</Button>
